@@ -1,0 +1,16 @@
+<div class="reg-container" style="height: 100vh; background-image: url('https://d38cf3wt06n6q6.cloudfront.net/tyasuitefront/webgpcs/images/warehouse-management-software.png'); background-size: cover;">
+    <div class="container col-md-6 p-3" style="backdrop-filter: blur(50px); background: rgba(255, 255, 255, 0.8);">
+        <h2>Login</h2>
+        <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">Submit</button>
+        </form>
+    </div>
+</div>
