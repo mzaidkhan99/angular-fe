@@ -27,9 +27,11 @@ export class LoginComponent {
         console.log(response);
         alert('login successful!');
         // Optionally, redirect the user to another page
+        sessionStorage.setItem('isLogin', 'true');
         window.location.href = '/dashboard';
       },
       (error) => {
+        sessionStorage.setItem('isLogin', 'false');
         console.error(error);
         alert('Registration failed!');
       }
