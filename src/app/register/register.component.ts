@@ -26,7 +26,7 @@ export class RegisterComponent {
       phone: this.phone
     };
 
-    this.http.post('https://your-api-endpoint.com/register', payload).subscribe(
+    this.http.post('http://127.0.0.1:5000/register', payload).subscribe(
       (response) => {
         console.log(response);
         alert('Registration successful!');

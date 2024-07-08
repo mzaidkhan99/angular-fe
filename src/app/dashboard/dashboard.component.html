@@ -1,15 +1,73 @@
 <div class="container mt-5">
-    <h2>Product List</h2>
-    <div *ngIf="products && products.length; else noProducts">
-      <div *ngFor="let product of products" class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">{{ product.description }}</p>
-          <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
-        </div>
+  <h2>Product List</h2>
+
+  <!-- Button to Add Product -->
+  <button class="btn btn-primary mb-3" (click)="openAddPopup()">Add Product</button>
+
+  <div *ngIf="products && products.length; else noProducts">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Minimum Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products" [style.background-color]="product.quantity < product.minimum_quantity ? 'red' : 'inherit'">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>₹{{ product.price.toFixed(2) }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.minimum_quantity }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-2" (click)="openUpdatePopup(product)">Update</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noProducts>
+    <p>No products available.</p>
+  </ng-template>
+
+  <!-- Update Product Popup -->
+  <div id="updatePopup" class="popup" [style.display]="showPopup ? 'block' : 'none'">
+    <div class="popup-content">
+      <h3>Update Product</h3>
+      <label for="productName">Name:</label>
+      <input type="text" id="productName" [(ngModel)]="currentProduct.name">
+      <label for="productPrice">Price:</label>
+      <input type="number" id="productPrice" [(ngModel)]="currentProduct.price">
+      <label for="productQuantity">Quantity:</label>
+      <input type="number" id="productQuantity" [(ngModel)]="currentProduct.quantity">
+      <div class="popup-actions">
+        <button class="btn btn-secondary" (click)="closePopup()">Cancel</button>
+        <button class="btn btn-primary" (click)="updateProduct()">Update</button>
       </div>
     </div>
-    <ng-template #noProducts>
-      <p>No products available.</p>
-    </ng-template>
   </div>
+
+  <!-- Add Product Popup -->
+  <div id="addPopup" class="popup" [style.display]="showAddPopup ? 'block' : 'none'">
+    <div class="popup-content">
+      <h3>Add Product</h3>
+      <label for="newProductName">Name:</label>
+      <input type="text" id="newProductName" [(ngModel)]="newProduct.name">
+      <label for="newProductPrice">Price:</label>
+      <input type="number" id="newProductPrice" [(ngModel)]="newProduct.price">
+      <label for="newProductQantity">Quantity:</label>
+      <input type="number" id="newProductQantity" [(ngModel)]="newProduct.quantity">
+      <label for="newProductMinimumQuantity">Minimum Quantity</label>
+      <input type="number" id="newProductMinimumQuantity" [(ngModel)]="newProduct.minimum_quantity">
+      <div class="popup-actions">
+        <button class="btn btn-secondary" (click)="closeAddPopup()">Cancel</button>
+        <button class="btn btn-primary" (click)="addProduct()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

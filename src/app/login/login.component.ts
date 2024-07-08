@@ -22,12 +22,12 @@ export class LoginComponent {
       password: this.password,
     };
 
-    this.http.post('https://localhost:4200/login', payload).subscribe(
+    this.http.post('http://127.0.0.1:5000/login', payload).subscribe(
       (response) => {
         console.log(response);
-        alert('Registration successful!');
+        alert('login successful!');
         // Optionally, redirect the user to another page
-        // window.location.href = '/success-page';
+        window.location.href = '/dashboard';
       },
       (error) => {
         console.error(error);
